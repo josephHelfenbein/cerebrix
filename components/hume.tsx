@@ -23,11 +23,12 @@ export default function Hume(){
     async function checkPermissions(){
         if(typeof navigator.permissions !== 'undefined'){
             try{
-                const status = await navigator.permissions.query({name: 'microphone' as PermissionName});
+                const status = await navigator.permissions.query({ name: 'microphone' as PermissionName});
                 return status.state === 'granted';
             }
             catch(err) {console.error('Failed to check audio permissions: ', err);}
         }
+        return false;
     }
     async function requestPermission(){
         setRequestingPermission(true);
@@ -70,6 +71,35 @@ export default function Hume(){
         }
     }
     return(
-        <></>
+        <div>
+            <div>
+                {chatHistory.map((chat, index)=>(
+                    <div key={index} className={`mb-4 flex ${chat.sender==='user'?'justify-end':'justify-start'}`}>
+                        <span className={`inline-block p-3 rounded-lg max-w-[70%] ${chat.sender==='user'?'bg-slate-600':'bg-white border border-gray-600'}`}>
+                            {chat.text}
+                        </span>
+                    </div>
+                ))}
+            </div>
+       
+        <div>
+            <button
+                onClick={readyState===VoiceReadyState.OPEN ? handleDisconnect : handleConnect}
+                disabled={requestingPermission}
+            >
+                {requestingPermission ? ('Requesting permissions...') :
+                readyState === VoiceReadyState.OPEN ? (<MicOff size={24} />) : (<Mic size={24}/>)}
+            </button>
+            <input
+                type="text"
+                value={message}
+                onChange={(e)=>setMessage(e.target.value)}
+                placeholder="Enter message..."
+            />
+            <button onClick={sendMessage}>
+                <Send size={24} />
+            </button>
+        </div>
+        </div>
     )
 }
