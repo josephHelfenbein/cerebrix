@@ -1,7 +1,21 @@
 {
   "extends": ["next/core-web-vitals", "next/typescript"],
-  "rules":{
+  "rules": {
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
+    ],
+    "@next/next/no-img-element": "off"
   }
 }
