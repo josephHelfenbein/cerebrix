@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "node server.js"
   },
   "dependencies": {
     "@humeai/voice-react": "^0.1.17",
     "@radix-ui/react-icons": "^1.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "https-localhost": "^4.7.1",
     "lucide-react": "^0.453.0",
     "next": "15.0.1",
     "react": "18.3.1",
