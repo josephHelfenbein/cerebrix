@@ -11,63 +11,46 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Select a Mini-Game</h1>
-      <div style={styles.gridContainer}>
-        <button style={styles.button} onClick={() => navigateToGame('memory')}>
-          🧠 Memory Matching Game
-        </button>
-        <button style={styles.button} onClick={() => navigateToGame('puzzle')}>
-          ✍️ Crossword Game
-        </button>
-        <button style={styles.button} onClick={() => navigateToGame('math')}>
-          🔢 Mental Math Game
-        </button>
-        <button style={styles.button} onClick={() => navigateToGame('reaction')}>
-          🎵 Guess the Instrument
-        </button>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-50 p-8">
+      <h1 className="text-4xl font-bold text-gray-800 mb-12">Select a Mini-Game</h1>
+      <div className="grid grid-cols-2 gap-8 w-full max-w-2xl">
+        <GameCard
+          image="/images/memory.png"
+          label="🧠 Memory Matching Game"
+          onClick={() => navigateToGame('memory')}
+        />
+        <GameCard
+          image="/images/crossword.png"
+          label="✍️ Crossword Game"
+          onClick={() => navigateToGame('puzzle')}
+        />
+        <GameCard
+          image="/images/math.png"
+          label="🔢 Mental Math Game"
+          onClick={() => navigateToGame('math')}
+        />
+        <GameCard
+          image="/images/instrument.png"
+          label="🎵 Guess the Instrument"
+          onClick={() => navigateToGame('reaction')}
+        />
       </div>
     </div>
   );
 }
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh', // Full screen height to center the content
-    backgroundColor: '#f0f0f5', // Light background for better contrast
-    padding: '20px',
-  },
-  title: {
-    fontSize: '36px',
-    marginBottom: '40px',
-    color: '#333',
-    textAlign: 'center',
-  },
-  gridContainer: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '30px',
-    width: '100%',
-    maxWidth: '800px',
-  },
-  button: {
-    padding: '20px',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    borderRadius: '12px',
-    border: 'none',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    transition: 'transform 0.2s, background-color 0.3s',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-  },
-  buttonHover: {
-    backgroundColor: '#45a049',
-    transform: 'scale(1.05)',
-  },
-};
+function GameCard({ image, label, onClick }) {
+  return (
+    <div
+      onClick={onClick}
+      className="flex flex-col items-center justify-center bg-white text-black rounded-lg p-6 cursor-pointer hover:shadow-xl transition transform hover:scale-105 border border-gray-300"
+    >
+      <img
+        src={image}
+        alt={label}
+        className="w-24 h-24 object-cover rounded-md mb-4"
+      />
+      <span className="text-xl font-semibold">{label}</span>
+    </div>
+  );
+}
