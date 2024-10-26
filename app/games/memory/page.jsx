@@ -17,14 +17,34 @@ export default function MemoryMatchingGame() {
   const [firstChoice, setFirstChoice] = useState(null);
   const [secondChoice, setSecondChoice] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [score, setScore] = useState(0);
+  const [difficulty, setDifficulty] = useState('easy');
 
-  // Shuffle cards and duplicate them
+  // Shuffle and set cards based on difficulty
   useEffect(() => {
-    const shuffledCards = [...cardImages, ...cardImages]
+    shuffleCards();
+  }, [difficulty]);
+
+  const shuffleCards = () => {
+    let selectedCards;
+    switch (difficulty) {
+      case 'medium':
+        selectedCards = cardImages.slice(0, 4); // 4 pairs
+        break;
+      case 'hard':
+        selectedCards = cardImages.slice(0, 6); // 6 pairs
+        break;
+      default:
+        selectedCards = cardImages.slice(0, 3); // 3 pairs (easy)
+    }
+
+    const shuffledCards = [...selectedCards, ...selectedCards]
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, matched: false, id: Math.random() }));
     setCards(shuffledCards);
-  }, []);
+    setScore(0); // Reset score when difficulty changes
+    resetTurn(); // Reset choices
+  };
 
   const handleChoice = (card) => {
     firstChoice ? setSecondChoice(card) : setFirstChoice(card);
@@ -40,6 +60,7 @@ export default function MemoryMatchingGame() {
             card.src === firstChoice.src ? { ...card, matched: true } : card
           )
         );
+        setScore((prevScore) => prevScore + 10); // Increase score by 10 for a correct match
       }
       setTimeout(() => resetTurn(), 1000);
     }
@@ -55,6 +76,18 @@ export default function MemoryMatchingGame() {
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>Memory Matching Game</h1>
+      <div style={styles.info}>
+        <span>Score: {score}</span>
+        <select
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
+          style={styles.select}
+        >
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
       <div style={styles.grid}>
         {cards.map((card) => (
           <div
@@ -67,7 +100,11 @@ export default function MemoryMatchingGame() {
             onClick={() => handleChoice(card)}
           >
             <img
-              src={firstChoice === card || secondChoice === card || card.matched ? card.src : '/images/cover.png'}
+              src={
+                firstChoice === card || secondChoice === card || card.matched
+                  ? card.src
+                  : '/images/cover.png'
+              }
               alt="card"
               style={styles.image}
             />
@@ -89,11 +126,24 @@ const styles = {
   },
   title: {
     fontSize: '32px',
+    marginBottom: '10px',
+  },
+  info: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    maxWidth: '600px',
     marginBottom: '20px',
+  },
+  select: {
+    padding: '5px 10px',
+    fontSize: '16px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
   },
   grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))',
     gap: '10px',
     maxWidth: '600px',
     width: '100%',
@@ -113,3 +163,4 @@ const styles = {
     objectFit: 'cover',
   },
 };
+
