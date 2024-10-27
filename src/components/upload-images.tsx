@@ -1,3 +1,5 @@
+'use client'
+
 import { createClient } from "@supabase/supabase-js";
 import {useState, useEffect} from 'react';
 import { useRouter } from "next/navigation";
@@ -6,9 +8,9 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export default function Upload({isOpen, onClose}){
+export default function Upload({isOpen, onClose}: {isOpen: boolean, onClose: () => void}){
     const [name, setName] = useState('');
-    const [image, setImage] = useState(null);
+    const [image, setImage] = useState<File | null>(null);
     const [isClient, setIsClient] = useState(false);
     const router = useRouter();
     const [updateMessage, setUpdateMessage] = useState('');
@@ -49,9 +51,9 @@ export default function Upload({isOpen, onClose}){
     };    
     if(!isOpen) return null;
     return (
-        <div style={styles.overlay}>
-            <div style={styles.modal}>
-            <button style={styles.closeButton} onClick={onClose}>X</button>
+        <div style={styles.overlay as React.CSSProperties}>
+            <div style={styles.modal as React.CSSProperties}>
+            <button style={styles.closeButton as React.CSSProperties} onClick={onClose}>X</button>
           <h1>Upload Family Member</h1>
           <input
             type="text"
@@ -63,11 +65,11 @@ export default function Upload({isOpen, onClose}){
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => setImage(e.target.files[0])}
+            onChange={(e) => setImage(e.target.files?.[0] || null)}
             style={styles.input}
           />
-           <button className='mb-2' onClick={handleUpload} style={styles.button}>Upload</button>
-          <button onClick={handleMove} style={styles.button}>Start Game</button>
+           <button className='mb-2' onClick={handleUpload} style={styles.button as React.CSSProperties}>Upload</button>
+          <button onClick={handleMove} style={styles.button as React.CSSProperties}>Start Game</button>
           {updateMessage !== '' && <p>{updateMessage}</p>}
           </div>
         </div>
