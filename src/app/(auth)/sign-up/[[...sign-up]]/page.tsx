@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SignUp } from "@clerk/nextjs";
+import React from "react";
 
 export default function LoginForm() {
   return (
