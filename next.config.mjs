@@ -1,4 +1,6 @@
 import pwa from '@ducanh2912/next-pwa';
+import MillionLint from '@million/lint';
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const withPwa = pwa({
   dest: 'public',
@@ -96,4 +98,18 @@ const config = {
 };
 
 
-export default config
+const withBundleAnalyzerConfig = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
+const withMillion = MillionLint.next({
+  rsc: true,
+  filter: {
+    exclude: './src/components/Guestbook.tsx',
+    include: '**/components/*.{mtsx,mjsx,tsx,jsx}',
+  },
+});
+
+const combinedConfig = withMillion(withBundleAnalyzerConfig(withPwa(config)));
+
+export default combinedConfig;
