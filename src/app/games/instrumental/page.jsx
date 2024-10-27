@@ -15,7 +15,7 @@ const instrumentEmojis = {
   flute: '🪈',
 };
 
-export default function YearGuessingGame() {
+export default function InstrumentGuessingGame() {
   const [token, setToken] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -26,8 +26,6 @@ export default function YearGuessingGame() {
   const [gameOver, setGameOver] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [userYear, setUserYear] = useState('');
-  const [correctYear, setCorrectYear] = useState(null);
 
   const audioRef = useRef(null);
 
@@ -95,7 +93,7 @@ export default function YearGuessingGame() {
             const validTracks = response.tracks.items
               .filter((track) => track.preview_url)
               .filter((track) => track.album.album_type === 'album')
-              .map((track) => ({ ...track, instrument }));
+              .map((track) => ({ ...track, correctInstrument: instrument }));
             allTracks.push(...validTracks);
           } else {
             console.error(`Unexpected response structure for ${instrument}:`, response);
@@ -164,11 +162,11 @@ export default function YearGuessingGame() {
   const handleGuess = () => {
     if (gameOver) return;
 
-    if (parseInt(userGuess) === correctYear) {
+    if (userGuess.toLowerCase() === currentTrack.correctInstrument) {
       setScore(score + 1);
-      setMessage(`Correct! The song was released in ${correctYear}.`);
+      setMessage(`Correct! It was a ${currentTrack.correctInstrument} ${instrumentEmojis[currentTrack.correctInstrument]}`);
     } else {
-      setMessage(`Incorrect. The correct year was ${correctYear}.`);
+      setMessage(`Incorrect. It was a ${currentTrack.correctInstrument} ${instrumentEmojis[currentTrack.correctInstrument]}`);
     }
 
     setGuesses(guesses + 1);
@@ -176,10 +174,10 @@ export default function YearGuessingGame() {
 
     if (guesses + 1 >= 10) {
       setGameOver(true);
-      setMessage(`Game over! Your final score is ${score + (parseInt(userGuess) === correctYear ? 1 : 0)} out of 10.`);
+      setMessage(`Game over! Your final score is ${score + (userGuess.toLowerCase() === currentTrack.correctInstrument ? 1 : 0)} out of 10.`);
       pauseTrack();
     } else {
-      fetchTracksByYear(userYear);
+      loadNextTrack();
     }
   };
 
@@ -207,49 +205,6 @@ export default function YearGuessingGame() {
     fetchInstrumentalTracks();
   };
 
-  const fetchTracksByYear = async (year) => {
-    setIsLoading(true);
-    setMessage('Loading tracks...');
-    try {
-      const startYear = parseInt(year);
-      const endYear = startYear + 14;
-      const response = await spotifyApi.searchTracks(`year:${startYear}-${endYear}`, {
-        limit: 50,
-        market: 'US',
-      });
-
-      if (response.tracks && response.tracks.items) {
-        const validTracks = response.tracks.items
-          .filter((track) => track.preview_url)
-          .map((track) => ({ ...track, releaseYear: new Date(track.album.release_date).getFullYear() }));
-
-        if (validTracks.length === 0) {
-          throw new Error('No valid tracks found');
-        }
-
-        const randomTrack = validTracks[Math.floor(Math.random() * validTracks.length)];
-        setTracks([randomTrack]);
-        setCurrentTrack(randomTrack);
-        setCorrectYear(randomTrack.releaseYear);
-        playTrack(randomTrack);
-        setMessage('');
-      } else {
-        throw new Error('Unexpected response structure');
-      }
-    } catch (error) {
-      console.error('Error fetching tracks:', error);
-      setMessage('Failed to fetch tracks. Please try again or check your internet connection.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleYearSubmit = () => {
-    if (userYear) {
-      fetchTracksByYear(userYear);
-    }
-  };
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-green-400 to-blue-500 p-8 text-white">
       <Link 
@@ -260,7 +215,7 @@ export default function YearGuessingGame() {
         ← Back to Dashboard
       </Link>
 
-      <h1 className="text-5xl font-bold mb-8 text-center">Guess the Year 🎵</h1>
+      <h1 className="text-5xl font-bold mb-8 text-center">Guess the Instrument 🎵</h1>
 
       {!token ? (
         <button
@@ -277,18 +232,23 @@ export default function YearGuessingGame() {
             <>
               {!currentTrack && !gameOver && (
                 <div className="flex flex-col items-center mb-8">
-                  <input
-                    type="number"
-                    placeholder="Enter a year (1950-2010)"
-                    value={userYear}
-                    onChange={(e) => setUserYear(e.target.value)}
+                  <select
+                    value={userGuess}
+                    onChange={(e) => setUserGuess(e.target.value)}
                     className="px-6 py-3 border rounded-full mb-4 w-80 text-center text-xl text-black"
-                  />
+                  >
+                    <option value="">Select an instrument</option>
+                    {Object.keys(instrumentEmojis).map((instrument) => (
+                      <option key={instrument} value={instrument}>
+                        {instrument} {instrumentEmojis[instrument]}
+                      </option>
+                    ))}
+                  </select>
                   <button
-                    onClick={handleYearSubmit}
+                    onClick={handleGuess}
                     className="px-8 py-4 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition duration-300 text-xl shadow-lg"
                   >
-                    Start Game
+                    Submit Guess
                   </button>
                 </div>
               )}
@@ -302,24 +262,6 @@ export default function YearGuessingGame() {
                     }`}
                   >
                     {isPlaying ? 'Pause Track ⏸' : 'Play Track ▶'}
-                  </button>
-                </div>
-              )}
-
-              {currentTrack && !gameOver && (
-                <div className="flex flex-col items-center mb-8">
-                  <input
-                    type="number"
-                    placeholder="Guess the year"
-                    value={userGuess}
-                    onChange={(e) => setUserGuess(e.target.value)}
-                    className="px-6 py-3 border rounded-full mb-4 w-80 text-center text-xl text-black"
-                  />
-                  <button
-                    onClick={handleGuess}
-                    className="px-8 py-4 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition duration-300 text-xl shadow-lg"
-                  >
-                    Submit Guess
                   </button>
                 </div>
               )}

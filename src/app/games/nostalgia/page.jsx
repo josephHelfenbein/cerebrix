@@ -174,7 +174,7 @@ export default function NostalgiaGame() {
                   onClick={handleYearSubmit}
                   className="px-8 py-4 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition duration-300 text-xl shadow-lg"
                 >
-                  Play Song from 14 Years Later
+                  Submit Year
                 </button>
               </div>
 
