@@ -11,12 +11,10 @@ export default async function Voice(){
       if(!accessToken) throw Error();
     return (
         <div className='flex justify-center h-screen'>
-       
             <div className='flex flex-col h-screen justify-between p-16'>
                 <h3 className='text-center text-2xl'>Personal Friend</h3>
                 <Client accessToken={accessToken}/>
             </div>
-            
         </div>
         
     )
