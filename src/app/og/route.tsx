@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
             borderRadius: 20,
             zIndex: 1,
           }}
-        />
+        /> 
       </div>
     ),
     {
