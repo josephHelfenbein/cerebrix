@@ -48,7 +48,7 @@ export default function drawerDemo() {
         </DrawerHeader>
         <DrawerFooter>
           <Link
-            href="/login"
+            href="/sign-in"
             className={buttonVariants({ variant: "outline" })}
           >
             Login
