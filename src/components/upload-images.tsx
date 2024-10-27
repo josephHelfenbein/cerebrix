@@ -18,7 +18,7 @@ export default function Upload({isOpen, onClose}){
     }, []);
     const handleMove = async () =>{
       onClose();
-      if (isClient) router.push('/Matching');
+      if (isClient) router.push('/games/matching');
     }
     const handleUpload = async () => {
         if (!name || !image) return alert('Please fill in all fields.');

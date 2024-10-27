@@ -65,7 +65,8 @@ const MathGame = () => {
       setScore(score + 1);
       const interval = window.setInterval(() => {
         const timeLeft = animationEnd - Date.now();
-   
+
+        
         if (timeLeft <= 0) {
           setShowFeedback('');
           return clearInterval(interval);}
@@ -172,7 +173,7 @@ const MathGame = () => {
   return (
     <div className="container p-4 w-full flex flex-col">
       <div className="flex justify-left w-full">
-        <a href="/">
+        <a href="/dashboard">
           <svg viewBox="0 -960 960 960" width="24px" fill="#c8cacd">
             <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
           </svg>

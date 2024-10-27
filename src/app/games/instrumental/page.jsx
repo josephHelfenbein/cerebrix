@@ -2,11 +2,20 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
+import Link from 'next/link';
 
-// Initialize Spotify API client
 const spotifyApi = new SpotifyWebApi();
 
-export default function InstrumentGame() {
+const instrumentEmojis = {
+  piano: '🎹',
+  guitar: '🎸',
+  violin: '🎻',
+  trumpet: '🎺',
+  saxophone: '🎷',
+  flute: '🪈',
+};
+
+export default function InstrumentalGame() {
   const [token, setToken] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -14,82 +23,133 @@ export default function InstrumentGame() {
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
   const [guesses, setGuesses] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const audioRef = useRef(null);
 
-  const fetchAccessToken = async () => {
-    try {
-      const response = await fetch('/api/route.ts', { method: 'POST' });
-      const data = await response.json();
-
-      if (data.access_token) {
-        setToken(data.access_token);
-        spotifyApi.setAccessToken(data.access_token);
-        window.localStorage.setItem('spotify_token', data.access_token);
-      } else {
-        console.error('Failed to get access token:', data.error);
-      }
-    } catch (error) {
-      console.error('Error refreshing token:', error);
-    }
-  };
-
   useEffect(() => {
-    const storedToken = window.localStorage.getItem('spotify_token');
+    const hash = window.location.hash;
+    let storedToken = window.localStorage.getItem('spotify_token');
 
-    if (storedToken) {
+    if (!storedToken && hash) {
+      storedToken = hash
+        .substring(1)
+        .split('&')
+        .find((element) => element.startsWith('access_token'))
+        ?.split('=')[1];
+
+      if (storedToken) {
+        window.location.hash = '';
+        window.localStorage.setItem('spotify_token', storedToken);
+        window.localStorage.setItem('token_expiration', Date.now() + 3600 * 1000);
+        setToken(storedToken);
+        spotifyApi.setAccessToken(storedToken);
+      } else {
+        console.error('Token not found in URL');
+        setMessage('Failed to authenticate with Spotify. Please try logging in again.');
+      }
+    } else if (storedToken) {
       setToken(storedToken);
       spotifyApi.setAccessToken(storedToken);
-    } else {
-      fetchAccessToken();
     }
   }, []);
 
   useEffect(() => {
     if (token) {
-      fetchInstrumentTracks();
+      const expirationTime = localStorage.getItem('token_expiration');
+      if (expirationTime && Date.now() > parseInt(expirationTime)) {
+        console.log('Token expired, refreshing...');
+        refreshToken();
+      } else {
+        fetchInstrumentalTracks();
+      }
     }
   }, [token]);
 
-  const fetchInstrumentTracks = async () => {
+  const refreshToken = async () => {
+    console.log('Token refresh not implemented');
+    localStorage.removeItem('spotify_token');
+    localStorage.removeItem('token_expiration');
+    setToken(null);
+    setMessage('Session expired. Please log in again.');
+  };
+
+  const fetchInstrumentalTracks = async () => {
+    const instruments = ['piano', 'guitar', 'violin', 'trumpet', 'saxophone', 'flute'];
+    setIsLoading(true);
+    setMessage('Loading tracks...');
     try {
-      const instruments = ['piano', 'guitar', 'violin', 'trumpet', 'saxophone', 'flute'];
-      const randomInstrument = instruments[Math.floor(Math.random() * instruments.length)];
-
-      const response = await spotifyApi.searchTracks(`solo ${randomInstrument}`, {
-        limit: 50,
-        market: 'US',
-      });
-
-      const validTracks = response.tracks.items.filter(
-        (track) => track.preview_url && track.album.album_type === 'album'
-      );
-
-      const uniqueTracks = [...new Set(validTracks.map((t) => t.preview_url))].map(
-        (url) => validTracks.find((track) => track.preview_url === url)
-      );
-
-      if (uniqueTracks.length > 0) {
-        setTracks(uniqueTracks);
-        setCurrentTrack(uniqueTracks[0]);
-      } else {
-        setMessage('No valid tracks found. Try again.');
+      const allTracks = [];
+      for (const instrument of instruments) {
+        try {
+          console.log(`Fetching tracks for ${instrument}...`);
+          const response = await spotifyApi.searchTracks(`solo ${instrument}`, {
+            limit: 5,
+            market: 'US',
+          });
+          if (response.tracks && response.tracks.items) {
+            const validTracks = response.tracks.items
+              .filter((track) => track.preview_url)
+              .filter((track) => track.album.album_type === 'album')
+              .map((track) => ({ ...track, instrument }));
+            allTracks.push(...validTracks);
+          } else {
+            console.error(`Unexpected response structure for ${instrument}:`, response);
+          }
+        } catch (instrumentError) {
+          console.error(`Error fetching tracks for ${instrument}:`, instrumentError);
+          if (instrumentError.status === 401) {
+            await refreshToken();
+          }
+        }
       }
+
+      if (allTracks.length === 0) {
+        throw new Error('No valid tracks found');
+      }
+
+      const shuffledTracks = allTracks.sort(() => Math.random() - 0.5);
+      setTracks(shuffledTracks);
+      setCurrentTrack(shuffledTracks[0]);
+      playTrack(shuffledTracks[0]);
+      setMessage('');
     } catch (error) {
       console.error('Error fetching tracks:', error);
-      setMessage('Failed to fetch tracks. Please try again.');
+      setMessage('Failed to fetch tracks. Please try again or check your internet connection.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
+    };
+  }, []);
+
   const playTrack = (track) => {
-    if (audioRef.current) audioRef.current.pause();
-
-    audioRef.current = new Audio(track.preview_url);
-    audioRef.current.play();
-    setIsPlaying(true);
-
-    audioRef.current.addEventListener('ended', () => setIsPlaying(false));
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = '';
+    }
+    if (track && track.preview_url) {
+      audioRef.current = new Audio(track.preview_url);
+      audioRef.current.play().catch(error => {
+        console.error('Error playing audio:', error);
+        setMessage('Error playing track. Please try again.');
+      });
+      setIsPlaying(true);
+      audioRef.current.addEventListener('ended', () => setIsPlaying(false));
+    } else {
+      console.error('Invalid track or missing preview URL');
+      setMessage('This track cannot be played. Moving to the next one.');
+      loadNextTrack();
+    }
   };
 
   const pauseTrack = () => {
@@ -99,80 +159,133 @@ export default function InstrumentGame() {
     }
   };
 
-  const handleGuess = (guess) => {
-    if (currentTrack && currentTrack.name.toLowerCase().includes(guess.toLowerCase())) {
-      setScore(score + 1);
-      setMessage('Correct!');
-    } else {
-      setMessage('Incorrect. Try again!');
-    }
-    setUserGuess('');
-    setGuesses(guesses + 1);
+  const handleGuess = () => {
+    if (gameOver) return;
 
-    if (audioRef.current) audioRef.current.pause();
+    const correctInstrument = currentTrack.instrument;
+    if (userGuess.toLowerCase() === correctInstrument.toLowerCase()) {
+      setScore(score + 1);
+      setMessage(`Correct! ${instrumentEmojis[correctInstrument]}`);
+    } else {
+      setMessage(`Incorrect. The correct answer was ${correctInstrument}. ${instrumentEmojis[correctInstrument]}`);
+    }
+
+    setGuesses(guesses + 1);
+    setUserGuess('');
 
     if (guesses + 1 >= 10) {
-      setMessage(`Game over! Your final score is ${score + 1}.`);
-      return;
+      setGameOver(true);
+      setMessage(`Game over! Your final score is ${score + (userGuess.toLowerCase() === correctInstrument.toLowerCase() ? 1 : 0)} out of 10.`);
+      pauseTrack();
+    } else {
+      loadNextTrack();
     }
-
-    loadNextTrack();
   };
 
   const loadNextTrack = () => {
     const nextTrack = tracks[Math.floor(Math.random() * tracks.length)];
     setCurrentTrack(nextTrack);
-    setMessage('');
     playTrack(nextTrack);
   };
 
-  const skipTrack = () => {
-    if (audioRef.current) audioRef.current.pause();
-    loadNextTrack();
+  const loginWithSpotify = () => {
+    const clientId = '639df2847d0b4df48f321a7dbbdae0e3';
+    const redirectUri = 'http://localhost:3000/games/instrumental';
+    const scopes = ['user-read-private', 'user-read-email', 'streaming'];
+
+    window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+      redirectUri
+    )}&scope=${scopes.join('%20')}&response_type=token&show_dialog=true`;
+  };
+
+  const restartGame = () => {
+    setScore(0);
+    setGuesses(0);
+    setGameOver(false);
+    setMessage('');
+    fetchInstrumentalTracks();
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-8">
-      <h1 className="text-4xl font-bold mb-4">Guess the Instrument</h1>
-
-      {currentTrack && (
-        <div className="flex flex-col items-center mb-8">
-          <button
-            onClick={() => (isPlaying ? pauseTrack() : playTrack(currentTrack))}
-            className={`p-4 text-white rounded-md ${
-              isPlaying ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
-            }`}
-          >
-            {isPlaying ? 'Pause Track' : 'Play Track'}
-          </button>
-
-          <button
-            onClick={skipTrack}
-            className="mt-2 p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
-          >
-            Skip Track
-          </button>
-        </div>
-      )}
-
-      <input
-        type="text"
-        placeholder="Enter your guess"
-        value={userGuess}
-        onChange={(e) => setUserGuess(e.target.value)}
-        className="p-2 border rounded-md mb-4"
-      />
-
-      <button
-        onClick={() => handleGuess(userGuess)}
-        className="p-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-green-400 to-blue-500 p-8 text-white">
+      <Link 
+        href="/dashboard" 
+        className="absolute top-4 left-4 px-4 py-2 bg-white text-blue-500 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg"
+        onClick={pauseTrack}
       >
-        Submit Guess
-      </button>
+        ← Back to Dashboard
+      </Link>
 
-      <p className="mt-4 text-xl">{message}</p>
-      <p className="mt-2 text-lg">Score: {score}</p>
-      <p className="mt-2 text-lg">Guesses: {guesses} / 10</p>
+      <h1 className="text-5xl font-bold mb-8 text-center">Guess the Instrument 🎵</h1>
+
+      {!token ? (
+        <button
+          onClick={loginWithSpotify}
+          className="px-8 py-4 bg-green-500 text-white rounded-full font-semibold hover:bg-green-600 transition duration-300 text-xl shadow-lg"
+        >
+          Login with Spotify
+        </button>
+      ) : (
+        <>
+          {isLoading ? (
+            <div className="text-2xl mb-4 animate-pulse">Loading tracks... 🎶</div>
+          ) : (
+            <>
+              {currentTrack && !gameOver && (
+                <div className="flex flex-col items-center mb-8">
+                  <button
+                    onClick={() => (isPlaying ? pauseTrack() : playTrack(currentTrack))}
+                    className={`px-8 py-4 text-white rounded-full font-semibold transition duration-300 text-xl shadow-lg ${
+                      isPlaying ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
+                    }`}
+                  >
+                    {isPlaying ? 'Pause Track ⏸' : 'Play Track ▶'}
+                  </button>
+                </div>
+              )}
+
+              {!gameOver && (
+                <div className="flex flex-col items-center mb-8">
+                  <input
+                    type="text"
+                    placeholder="Enter instrument name"
+                    value={userGuess}
+                    onChange={(e) => setUserGuess(e.target.value)}
+                    className="px-6 py-3 border rounded-full mb-4 w-80 text-center text-xl text-black"
+                  />
+                  <button
+                    onClick={handleGuess}
+                    className="px-8 py-4 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition duration-300 text-xl shadow-lg"
+                  >
+                    Submit Guess
+                  </button>
+                </div>
+              )}
+
+              <p className="text-2xl mb-4 text-center">{message}</p>
+              <p className="text-xl mb-2">Score: {score}</p>
+              <p className="text-xl mb-4">Guesses: {guesses} / 10</p>
+
+              <div className="flex justify-center space-x-4 mb-8">
+                {Object.entries(instrumentEmojis).map(([instrument, emoji]) => (
+                  <span key={instrument} className="text-3xl" title={instrument}>
+                    {emoji}
+                  </span>
+                ))}
+              </div>
+
+              {gameOver && (
+                <button
+                  onClick={restartGame}
+                  className="px-8 py-4 bg-yellow-500 text-white rounded-full font-semibold hover:bg-yellow-600 transition duration-300 text-xl shadow-lg"
+                >
+                  Play Again 🔄
+                </button>
+              )}
+            </>
+          )}
+        </>
+      )}
     </div>
   );
 }
