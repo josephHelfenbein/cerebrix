@@ -1,4 +1,3 @@
-// app/dashboard/page.jsx
 "use client";
 
 import { useRouter } from 'next/navigation';
@@ -8,7 +7,7 @@ import Upload from '@/components/upload-images';
 export default function Dashboard() {
   const router = useRouter();
 
-  const navigateToGame = (game) => {
+  const navigateToGame = (game: string) => {
     router.push(`/games/${game}`);
   };
 
@@ -49,7 +48,7 @@ export default function Dashboard() {
   );
 }
 
-function GameCard({ image, label, onClick }) {
+function GameCard({ image, label, onClick }: { image: string, label: string, onClick: () => void }) {
   return (
     <div
       onClick={onClick}
@@ -66,7 +65,7 @@ function GameCard({ image, label, onClick }) {
 }
 
 
-function LongGameCard({ image, label, onClick }) {
+function LongGameCard({ image, label, onClick }: { image: string, label: string, onClick: () => void }) {
   return (
     <div
       onClick={onClick}
