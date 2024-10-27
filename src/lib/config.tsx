@@ -6,16 +6,16 @@ import { RiInstagramFill } from "react-icons/ri";
 export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
-  name: "acme.ai",
-  description: "Automate your workflow with AI",
+  name: "Cerebrix",
+  description: "Engage, Exercise, Enhance",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-  keywords: ["SaaS", "Template", "Next.js", "React", "Tailwind CSS"],
+  keywords: ["Dementia", "Cognitive Therapy", "Voice-Driven", "AI", "Memory Care"],
   links: {
-    email: "support@acme.ai",
-    twitter: "https://twitter.com/magicuidesign",
-    discord: "https://discord.gg/87p2vpsat5",
-    github: "https://github.com/magicuidesign/magicui",
-    instagram: "https://instagram.com/magicuidesign/",
+    email: "support@cerebrix.ai",
+    twitter: "https://twitter.com/cerebrixai",
+    discord: "https://discord.gg/cerebrix",
+    github: "https://github.com/cerebrix",
+    instagram: "https://instagram.com/cerebrixai/",
   },
   header: [
     {
@@ -23,25 +23,25 @@ export const siteConfig = {
       content: {
         main: {
           icon: <Icons.logo className="h-6 w-6" />,
-          title: "AI-Powered Automation",
-          description: "Streamline your workflow with intelligent automation.",
+          title: "AI-Powered Cognitive Therapy",
+          description: "Personalized mini-games and activities for dementia support.",
           href: "#",
         },
         items: [
           {
             href: "#",
-            title: "Task Automation",
-            description: "Automate repetitive tasks and save time.",
+            title: "Adaptive Games",
+            description: "Mini-games that evolve with user's cognitive needs.",
           },
           {
             href: "#",
-            title: "Workflow Optimization",
-            description: "Optimize your processes with AI-driven insights.",
+            title: "Voice Interaction",
+            description: "User-friendly voice-driven interface for easy navigation.",
           },
           {
             href: "#",
-            title: "Intelligent Scheduling",
-            description: "AI-powered scheduling for maximum efficiency.",
+            title: "Progress Tracking",
+            description: "Smart analytics to monitor cognitive well-being.",
           },
         ],
       },
@@ -51,35 +51,24 @@ export const siteConfig = {
       content: {
         items: [
           {
-            title: "For Small Businesses",
+            title: "For Individuals",
             href: "#",
-            description: "Tailored automation solutions for growing companies.",
+            description: "Personalized cognitive therapy at home.",
           },
           {
-            title: "Enterprise",
+            title: "For Caregivers",
             href: "#",
-            description: "Scalable AI automation for large organizations.",
+            description: "Tools to support and monitor loved ones with dementia.",
           },
           {
-            title: "Developers",
+            title: "For Healthcare Providers",
             href: "#",
-            description: "API access and integration tools for developers.",
+            description: "Professional tools for cognitive assessment and therapy.",
           },
           {
-            title: "Healthcare",
+            title: "For Memory Care Facilities",
             href: "#",
-            description: "Specialized automation for healthcare workflows.",
-          },
-          {
-            title: "Finance",
-            href: "#",
-            description: "AI-driven process automation for financial services.",
-          },
-          {
-            title: "Education",
-            href: "#",
-            description:
-              "Streamline administrative tasks in educational institutions.",
+            description: "Scalable solutions for group and individual therapy sessions.",
           },
         ],
       },
@@ -97,101 +86,89 @@ export const siteConfig = {
       period: "month",
       yearlyPrice: "$16",
       features: [
-        "1 User",
-        "5GB Storage",
-        "Basic Support",
-        "Limited API Access",
-        "Standard Analytics",
+        "1 User Profile",
+        "Basic Games Library",
+        "Voice Interaction",
+        "Weekly Progress Reports",
+        "Email Support",
       ],
-      description: "Perfect for individuals and small projects",
-      buttonText: "Subscribe",
+      description: "Perfect for individuals starting their cognitive journey",
+      buttonText: "Get Started",
       isPopular: false,
     },
     {
-      name: "PRO",
+      name: "FAMILY",
       href: "#",
       price: "$49",
       period: "month",
       yearlyPrice: "$40",
       features: [
-        "5 Users",
-        "50GB Storage",
-        "Priority Support",
-        "Full API Access",
-        "Advanced Analytics",
+        "Up to 5 User Profiles",
+        "Extended Games Library",
+        "Advanced Voice AI",
+        "Daily Progress Insights",
+        "Caregiver Dashboard",
       ],
-      description: "Ideal for growing businesses and teams",
-      buttonText: "Subscribe",
+      description: "Ideal for families and small care groups",
+      buttonText: "Choose Family",
       isPopular: true,
     },
     {
-      name: "ENTERPRISE",
+      name: "PROFESSIONAL",
       href: "#",
       price: "$99",
       period: "month",
       yearlyPrice: "$82",
       features: [
-        "Unlimited Users",
-        "500GB Storage",
-        "24/7 Premium Support",
-        "Custom Integrations",
-        "AI-Powered Insights",
+        "Unlimited User Profiles",
+        "Full Games & Activities Suite",
+        "Custom Voice Interactions",
+        "Real-time Analytics",
+        "Priority Support",
       ],
-      description: "For large-scale operations and high-volume users",
-      buttonText: "Subscribe",
+      description: "For healthcare providers and large care facilities",
+      buttonText: "Contact Sales",
       isPopular: false,
     },
   ],
   faqs: [
     {
-      question: "What is acme.ai?",
+      question: "What is Cerebrix?",
       answer: (
         <span>
-          acme.ai is a platform that helps you build and manage your AI-powered
-          applications. It provides tools and services to streamline the
-          development and deployment of AI solutions.
+          Cerebrix is a voice-driven web app that provides engaging, therapeutic mini-games and personalized wellness activities for individuals with dementia. It uses AI to adapt exercises to each user's cognitive needs.
         </span>
       ),
     },
     {
-      question: "How can I get started with acme.ai?",
+      question: "How does Cerebrix help individuals with dementia?",
       answer: (
         <span>
-          You can get started with acme.ai by signing up for an account on our
-          website, creating a new project, and following our quick-start guide.
-          We also offer tutorials and documentation to help you along the way.
+          Cerebrix offers cognitive stimulation through adaptive games, memory exercises, and relaxation activities. It tracks progress, adjusts difficulty levels, and provides insights to support cognitive well-being.
         </span>
       ),
     },
     {
-      question: "What types of AI models does acme.ai support?",
+      question: "Can Cerebrix be used without technical knowledge?",
       answer: (
         <span>
-          acme.ai supports a wide range of AI models, including but not limited
-          to natural language processing, computer vision, and predictive
-          analytics. We continuously update our platform to support the latest
-          AI technologies.
+          Yes, Cerebrix is designed to be user-friendly with voice interactions and intuitive interfaces, making it accessible for individuals with varying levels of technical proficiency.
         </span>
       ),
     },
     {
-      question: "Is acme.ai suitable for beginners in AI development?",
+      question: "How does the voice interaction work?",
       answer: (
         <span>
-          Yes, acme.ai is designed to be user-friendly for both beginners and
-          experienced developers. We offer intuitive interfaces, pre-built
-          templates, and extensive learning resources to help users of all skill
-          levels create AI-powered applications.
+          Cerebrix uses advanced voice recognition to allow users to navigate the app, play games, and interact with activities using simple voice commands, enhancing accessibility and ease of use.
         </span>
       ),
     },
     {
-      question: "What kind of support does acme.ai provide?",
+      question: "Is my data secure with Cerebrix?",
       answer: (
         <span>
-          acme.ai provides comprehensive support including documentation, video
-          tutorials, a community forum, and dedicated customer support. We also
-          offer premium support plans for enterprises with more complex needs.
+          Yes, Cerebrix takes data privacy and security seriously. All personal information and progress data are encrypted and stored securely, complying with healthcare data protection standards.
         </span>
       ),
     },
@@ -202,8 +179,8 @@ export const siteConfig = {
       links: [
         { href: "#", text: "Features", icon: null },
         { href: "#", text: "Pricing", icon: null },
-        { href: "#", text: "Documentation", icon: null },
-        { href: "#", text: "API", icon: null },
+        { href: "#", text: "How It Works", icon: null },
+        { href: "#", text: "Testimonials", icon: null },
       ],
     },
     {
@@ -219,14 +196,14 @@ export const siteConfig = {
     {
       title: "Resources",
       links: [
-        { href: "#", text: "Community", icon: null },
-        { href: "#", text: "Contact", icon: null },
-        { href: "#", text: "Support", icon: null },
-        { href: "#", text: "Status", icon: null },
+        { href: "#", text: "Support Center", icon: null },
+        { href: "#", text: "Caregiver Guide", icon: null },
+        { href: "#", text: "Research", icon: null },
+        { href: "#", text: "Privacy Policy", icon: null },
       ],
     },
     {
-      title: "Social",
+      title: "Connect",
       links: [
         {
           href: "#",
