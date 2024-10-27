@@ -130,7 +130,7 @@ export default function InstrumentGame() {
 
   const loginWithSpotify = () => {
     const clientId = '864f98b694c140088d80ef005804ca26'; // Replace with your Client ID
-    const redirectUri = 'http://localhost:3000/games/instrumental'; // Adjust for production
+    const redirectUri = 'https://hackru-2024-rouge.vercel.app/games/instrumental'; // Adjust for production
     const scopes = ['user-read-email', 'user-read-private'];
 
     window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
