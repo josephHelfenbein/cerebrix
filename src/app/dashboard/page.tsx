@@ -19,28 +19,28 @@ export default function Dashboard() {
       <h1 className="text-4xl font-bold text-gray-800 mb-12">Select a Mini-Game</h1>
       <div className="grid grid-cols-2 gap-8 w-full max-w-2xl">
         <GameCard
-          image="/images/memory.png"
+          image="/images/memory.jpg"
           label="🧠 Memory Matching Game"
           onClick={() => setModalOpen(true)}
         />
         <GameCard
-          image="/images/crossword.png"
-          label="✍️ Crossword Game"
-          onClick={() => navigateToGame('puzzle')}
+          image="/images/nostalgia.jpg"
+          label="✍️ Nostalgia Trip"
+          onClick={() => navigateToGame('nostalgia')}
         />
         <GameCard
-          image="/images/math.png"
+          image="/images/math.jpg"
           label="🔢 Mental Math Game"
           onClick={() => navigateToGame('math')}
         />
         <GameCard
-          image="/images/instrument.png"
+          image="/images/instrument.avif"
           label="🎵 Guess the Instrument"
           onClick={() => navigateToGame('instrumental')}
         />
       </div>
       <LongGameCard
-          image="/images/emotional.png"
+          image="/images/emotional.jpeg"
           label="✨ AI Friend"
           onClick={() => router.push('/voice')}
         />
@@ -74,7 +74,7 @@ function LongGameCard({ image, label, onClick }: { image: string, label: string,
       <img
         src={image}
         alt={label}
-        className="w-24 h-24 object-cover rounded-md mb-4"
+        className="w-50 h-24 object-cover rounded-md mb-4"
       />
       <span className="text-xl font-semibold">{label}</span>
     </div>
