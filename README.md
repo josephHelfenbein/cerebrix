@@ -158,6 +158,7 @@ Project Link: [https://github.com/aw4630/hackru-2024](https://github.com/aw4630/
 
 This project was submitted to the HackRU 2024 hackathon for the NeuroTech track.
 
+Devpost link: https://devpost.com/software/cerebrix
 
 * [Best README Template](https://github.com/othneildrew/Best-README-Template)
 
