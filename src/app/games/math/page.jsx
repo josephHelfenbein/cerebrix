@@ -39,13 +39,15 @@ const MathGame = () => {
 
   const generateProblem = async () => {
     try {
-      const response = await fetch('/api/generate-math-problem', {
+      const response = await fetch('https://cerebrix-llm.josephhelfenbein.workers.dev/math', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ difficulty }),
+        body: JSON.stringify({ 'text':difficulty }),
       });
       const data = await response.json();
-      setProblem(data.problem);
+      const jsonUse = JSON.parse(data.response);
+      console.log(jsonUse);
+      setProblem({question:jsonUse.equation, answer:jsonUse.answer});
     } catch (error) {
       console.error('Error generating problem:', error);
     }
@@ -53,7 +55,7 @@ const MathGame = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (parseInt(userAnswer) === problem.answer) {
+    if (userAnswer === problem.answer) {
       setScore(score + 1);
       updateDifficulty(true);
     } else {
