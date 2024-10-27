@@ -1,14 +1,14 @@
-import { app } from '@/constants';
+// import { app } from '@/constants';
 import type { Metadata, Viewport } from 'next';
 
 export function constructMetadata({
-  title = `${app.name}`,
-  description = `${app.description}`,
+  title = `Cerebrix`,
+  description = `Cerebrix is a voice-driven web app for dementia support, offering personalized mini-games, music, and wellness activities. Powered by AI, it adapts to users' needs, tracks progress, and provides insights for caregivers—making cognitive therapy an empowering daily habit.`,
   image = '/opengraph-image.png',
   twitter = '/twitter-image.png',
   icons = '/assets/svgs/logo.svg',
   noIndex = false,
-  url = app.url,
+  url = '',
 }: {
   title?: string;
   description?: string;
