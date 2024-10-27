@@ -1,20 +1,14 @@
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { cn, constructMetadata } from "@/lib/utils";
+import { constructMetadata, constructViewport } from "@/utils";
+import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
-import "./globals.css";
+import "@styles/globals.css";
 
 export const metadata: Metadata = constructMetadata({});
 
-export const viewport: Viewport = {
-  colorScheme: "light",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
-
+export const viewport: Viewport = constructViewport();
 export default function RootLayout({
   children,
 }: Readonly<{
