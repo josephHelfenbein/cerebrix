@@ -180,15 +180,18 @@ export default function InstrumentGuessingGame() {
       setMessage(`Game over! Your final score is ${score + (userGuess.toLowerCase() === currentTrack.correctInstrument ? 1 : 0)} out of 10.`);
       pauseTrack();
     } else {
-      loadNextTrack();
+      // Immediately load and play the next track
+      const nextTrack = tracks[Math.floor(Math.random() * tracks.length)];
+      setCurrentTrack(nextTrack);
+      playTrack(nextTrack);
     }
   };
 
-  const loadNextTrack = () => {
-    const nextTrack = tracks[Math.floor(Math.random() * tracks.length)];
-    setCurrentTrack(nextTrack);
-    playTrack(nextTrack);
-  };
+  // const loadNextTrack = () => {
+  //   const nextTrack = tracks[Math.floor(Math.random() * tracks.length)];
+  //   setCurrentTrack(nextTrack);
+  //   playTrack(nextTrack);
+  // };
 
   const loginWithSpotify = () => {
     const clientId = '639df2847d0b4df48f321a7dbbdae0e3';
