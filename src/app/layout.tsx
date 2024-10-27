@@ -5,9 +5,7 @@ import { constructMetadata, constructViewport } from "@/utils";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
-import { ClerkLoaded, ClerkLoading, ClerkProvider } from "@clerk/nextjs";
-import { MultisessionAppSupport } from "@clerk/clerk-react/internal";
-import Loader from "@/components/client/loader";
+import { Providers } from "@/providers";
 
 
 export const metadata: Metadata = constructMetadata();
@@ -29,28 +27,17 @@ export default function RootLayout({
           "min-h-screen bg-background antialiased w-full mx-auto scroll-smooth"
         )}
       >
-        <ClerkProvider
-          publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-          signInUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}
-          signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}
-        >
-          <MultisessionAppSupport>
-            <ClerkLoading>
-              <Loader />
-            </ClerkLoading>
-            <ClerkLoaded>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="light"
-                enableSystem={false}
-              >
-                {children}
-                <ThemeToggle />
-                <TailwindIndicator />
-              </ThemeProvider>
-            </ClerkLoaded>
-          </MultisessionAppSupport>
-        </ClerkProvider>
+        <Providers>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem={false}
+          >
+            {children}
+            <ThemeToggle />
+            <TailwindIndicator />
+          </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );

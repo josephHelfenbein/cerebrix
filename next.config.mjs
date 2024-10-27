@@ -34,7 +34,6 @@ const config = {
   },
   experimental: {
     optimizeCss: true,
-    swcMinify: true,
     turbo: {
       rules: {
         '*.svg': {
