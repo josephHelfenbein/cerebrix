@@ -8,7 +8,7 @@ export function constructMetadata({
   twitter = '/twitter-image.png',
   icons = '/assets/svgs/logo.svg',
   noIndex = false,
-  url = '',
+  url = 'https://hackru-2024-rouge.vercel.app',
 }: {
   title?: string;
   description?: string;
