@@ -11,6 +11,7 @@
     "server": "node server.js"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.0.2",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@humeai/voice-react": "^0.1.17",
     "@million/lint": "^1.0.11",
