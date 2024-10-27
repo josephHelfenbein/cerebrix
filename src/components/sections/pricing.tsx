@@ -22,7 +22,7 @@ export default function PricingSection() {
   };
 
   return (
-    <Section title="Pricing" subtitle="Choose the plan that's right for you">
+    <Section title="Pricing" subtitle="Choose the plan that fits your needs">
       <div className="flex justify-center mb-10">
         <span className="mr-2 font-semibold">Monthly</span>
         <label className="relative inline-flex items-center cursor-pointer">
@@ -90,11 +90,9 @@ export default function PricingSection() {
                 <span className="text-5xl font-bold tracking-tight text-foreground">
                   {isMonthly ? plan.price : plan.yearlyPrice}
                 </span>
-                {plan.period !== "Next 3 months" && (
-                  <span className="text-sm font-semibold leading-6 tracking-wide text-muted-foreground">
-                    / {plan.period}
-                  </span>
-                )}
+                <span className="text-sm font-semibold leading-6 tracking-wide text-muted-foreground">
+                  / {isMonthly ? "month" : "year"}
+                </span>
               </p>
 
               <p className="text-xs leading-5 text-muted-foreground">

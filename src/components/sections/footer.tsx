@@ -1,7 +1,7 @@
-import { Icons } from "@/components/icons";
 import { siteConfig } from "@/lib/config";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { Brain } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -12,7 +12,7 @@ export default function Footer() {
           title={siteConfig.name}
           className="relative mr-6 flex items-center space-x-2"
         >
-          <Icons.logo className="w-auto h-[40px]" />
+          <Brain className="w-auto h-[40px] text-primary" />
           <span className="font-bold text-xl">{siteConfig.name}</span>
         </a>
 
@@ -47,12 +47,12 @@ export default function Footer() {
           </span>
           <ul className="flex justify-start md:justify-end text-sm tracking-tight text-foreground">
             <li className="mr-3 md:mx-4">
-              <Link href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="/privacy" target="_blank" rel="noopener noreferrer">
                 Privacy Policy
               </Link>
             </li>
             <li className="mr-3 md:mx-4">
-              <Link href="#" target="_blank" rel="noopener noreferrer">
+              <Link href="/terms" target="_blank" rel="noopener noreferrer">
                 Terms of Service
               </Link>
             </li>

@@ -1,45 +1,45 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import Section from "@/components/section";
 import { Card, CardContent } from "@/components/ui/card";
-import { Brain, Shield, Zap } from "lucide-react";
+import { Brain, Clock, Users } from "lucide-react";
 
-const problems = [
+const challenges = [
   {
-    title: "Data Overload",
+    title: "Cognitive Decline",
     description:
-      "Businesses struggle to make sense of vast amounts of complex data, missing out on valuable insights that could drive growth and innovation.",
+      "Individuals with dementia face progressive loss of memory and cognitive functions, impacting their daily lives and independence.",
     icon: Brain,
   },
   {
-    title: "Slow Decision-Making",
+    title: "Limited Engagement",
     description:
-      "Traditional data processing methods are too slow, causing businesses to lag behind market changes and miss crucial opportunities.",
-    icon: Zap,
+      "Traditional therapy methods can be repetitive and unengaging, leading to decreased participation and slower progress.",
+    icon: Clock,
   },
   {
-    title: "Data Security Concerns",
+    title: "Caregiver Burden",
     description:
-      "With increasing cyber threats, businesses worry about the safety of their sensitive information when adopting new technologies.",
-    icon: Shield,
+      "Families and caregivers often struggle to provide consistent, effective cognitive stimulation alongside daily care responsibilities.",
+    icon: Users,
   },
 ];
 
 export default function Component() {
   return (
     <Section
-      title="Problem"
-      subtitle="Manually entering your data is a hassle."
+      title="Challenges"
+      subtitle="Dementia care presents unique obstacles for individuals and caregivers."
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-        {problems.map((problem, index) => (
+        {challenges.map((challenge, index) => (
           <BlurFade key={index} delay={0.2 + index * 0.2} inView>
             <Card className="bg-background border-none shadow-none">
               <CardContent className="p-6 space-y-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                  <problem.icon className="w-6 h-6 text-primary" />
+                  <challenge.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-semibold">{problem.title}</h3>
-                <p className="text-muted-foreground">{problem.description}</p>
+                <h3 className="text-xl font-semibold">{challenge.title}</h3>
+                <p className="text-muted-foreground">{challenge.description}</p>
               </CardContent>
             </Card>
           </BlurFade>

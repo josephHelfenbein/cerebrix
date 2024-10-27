@@ -10,11 +10,16 @@ export default async function BlogSection() {
   );
 
   return (
-    <Section title="Blog" subtitle="Latest Articles">
+    <Section title="Insights" subtitle="Latest Articles on Cognitive Health">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {articles.map((data, idx) => (
           <BlogCard key={data.slug} data={data} priority={idx <= 1} />
         ))}
+      </div>
+      <div className="mt-12 text-center">
+        <a href="/blog" className="text-primary hover:underline">
+          View all articles
+        </a>
       </div>
     </Section>
   );

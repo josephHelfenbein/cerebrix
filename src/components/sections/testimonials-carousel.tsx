@@ -10,66 +10,74 @@ import {
 import Image from "next/image";
 import { MdOutlineFormatQuote } from "react-icons/md";
 
-const companies = [
-  "Google",
-  "Microsoft",
-  "Amazon",
-  "Netflix",
-  "YouTube",
-  "Instagram",
-  "Uber",
-  "Spotify",
+const testimonials = [
+  {
+    quote: "Cerebrix has been a game-changer for my mother. The voice-driven interface makes it easy for her to engage with the cognitive exercises, and we've seen noticeable improvements in her memory and mood.",
+    name: "Sarah Johnson",
+    role: "Caregiver",
+    image: "/testimonials/sarah-johnson.jpg"
+  },
+  {
+    quote: "As a neurologist, I'm impressed by the adaptive nature of Cerebrix's games. They provide just the right level of challenge for each patient, making therapy both effective and enjoyable.",
+    name: "Dr. Michael Chen",
+    role: "Neurologist",
+    image: "/testimonials/dr-chen.jpg"
+  },
+  {
+    quote: "The progress tracking feature has been invaluable in our memory care facility. It allows us to provide personalized care and show families tangible results of their loved ones' cognitive therapy.",
+    name: "Emily Rodriguez",
+    role: "Memory Care Facility Director",
+    image: "/testimonials/emily-rodriguez.jpg"
+  },
+  {
+    quote: "I was skeptical at first, but Cerebrix has truly helped me stay mentally active. The voice commands are intuitive, and I look forward to my daily exercises.",
+    name: "Robert Thompson",
+    role: "Cerebrix User",
+    image: "/testimonials/robert-thompson.jpg"
+  },
 ];
 
 export default function Component() {
   return (
     <Section
-      title="Testimonial Highlight"
-      subtitle="What our customers are saying"
+      title="Success Stories"
+      subtitle="Hear from our users and healthcare professionals"
     >
       <Carousel>
         <div className="max-w-2xl mx-auto relative">
           <CarouselContent>
-            {Array.from({ length: 7 }).map((_, index) => (
+            {testimonials.map((testimonial, index) => (
               <CarouselItem key={index}>
                 <div className="p-2 pb-5">
                   <div className="text-center">
                     <MdOutlineFormatQuote className="text-4xl text-themeDarkGray my-4 mx-auto" />
                     <BlurFade delay={0.25} inView>
                       <h4 className="text-1xl font-semibold max-w-lg mx-auto px-10">
-                        There is a lot of exciting stuff going on in the stars
-                        above us that make astronomy so much fun. The truth is
-                        the universe is a constantly changing, moving, some
-                        would say “living” thing because you just never know
-                        what you are going to see on any given night of
-                        stargazing.
+                        {testimonial.quote}
                       </h4>
                     </BlurFade>
                     <BlurFade delay={0.25 * 2} inView>
                       <div className="mt-8">
                         <Image
-                          width={0}
-                          height={40}
-                          key={index}
-                          src={`https://cdn.magicui.design/companies/${
-                            companies[index % companies.length]
-                          }.svg`}
-                          alt={`${companies[index % companies.length]} Logo`}
-                          className="mx-auto w-auto h-[40px] grayscale opacity-30"
+                          width={80}
+                          height={80}
+                          src={testimonial.image}
+                          alt={`${testimonial.name}'s portrait`}
+                          className="mx-auto rounded-full"
                         />
                       </div>
                     </BlurFade>
                     <div className="">
                       <BlurFade delay={0.25 * 3} inView>
                         <h4 className="text-1xl font-semibold my-2">
-                          Leslie Alexander
+                          {testimonial.name}
                         </h4>
                       </BlurFade>
                     </div>
                     <BlurFade delay={0.25 * 4} inView>
                       <div className=" mb-3">
                         <span className="text-sm text-themeDarkGray">
-                          UI Designer
+                          {testimonial.role}
                         </span>
                       </div>
                     </BlurFade>

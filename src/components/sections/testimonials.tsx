@@ -41,18 +41,16 @@ export const TestimonialCard = ({
   img,
   role,
   className,
-  ...props // Capture the rest of the props
+  ...props
 }: TestimonialCardProps) => (
   <div
     className={cn(
       "mb-4 flex w-full cursor-pointer break-inside-avoid flex-col items-center justify-between gap-6 rounded-xl p-4",
-      // light styles
-      " border border-neutral-200 bg-white",
-      // dark styles
+      "border border-neutral-200 bg-white",
       "dark:bg-black dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
       className
     )}
-    {...props} // Spread the rest of the props here
+    {...props}
   >
     <div className="select-none text-sm font-normal text-neutral-700 dark:text-neutral-400">
       {description}
@@ -84,184 +82,86 @@ export const TestimonialCard = ({
 
 const testimonials = [
   {
-    name: "Alex Rivera",
-    role: "CTO at InnovateTech",
-    img: "https://randomuser.me/api/portraits/men/91.jpg",
+    name: "Sarah Johnson",
+    role: "Caregiver",
+    img: "/testimonials/sarah-johnson.jpg",
     description: (
       <p>
-        The AI-driven analytics from #QuantumInsights have revolutionized our
-        product development cycle.
+        Cerebrix has been a game-changer for my mother.
         <Highlight>
-          Insights are now more accurate and faster than ever.
+          The voice-driven interface makes it so easy for her to engage
         </Highlight>{" "}
-        A game-changer for tech companies.
+        with the cognitive exercises. We've seen noticeable improvements in her memory and mood.
       </p>
     ),
   },
   {
-    name: "Samantha Lee",
-    role: "Marketing Director at NextGen Solutions",
-    img: "https://randomuser.me/api/portraits/women/12.jpg",
+    name: "Dr. Michael Chen",
+    role: "Neurologist",
+    img: "/testimonials/dr-chen.jpg",
     description: (
       <p>
-        Implementing #AIStream&apos;s customer prediction model has drastically
-        improved our targeting strategy.
-        <Highlight>Seeing a 50% increase in conversion rates!</Highlight> Highly
-        recommend their solutions.
-      </p>
-    ),
-  },
-  {
-    name: "Raj Patel",
-    role: "Founder & CEO at StartUp Grid",
-    img: "https://randomuser.me/api/portraits/men/45.jpg",
-    description: (
-      <p>
-        As a startup, we need to move fast and stay ahead. #CodeAI&apos;s
-        automated coding assistant helps us do just that.
-        <Highlight>Our development speed has doubled.</Highlight> Essential tool
-        for any startup.
-      </p>
-    ),
-  },
-  {
-    name: "Emily Chen",
-    role: "Product Manager at Digital Wave",
-    img: "https://randomuser.me/api/portraits/women/83.jpg",
-    description: (
-      <p>
-        #VoiceGen&apos;s AI-driven voice synthesis has made creating global
-        products a breeze.
-        <Highlight>Localization is now seamless and efficient.</Highlight> A
-        must-have for global product teams.
-      </p>
-    ),
-  },
-  {
-    name: "Michael Brown",
-    role: "Data Scientist at FinTech Innovations",
-    img: "https://randomuser.me/api/portraits/men/1.jpg",
-    description: (
-      <p>
-        Leveraging #DataCrunch&apos;s AI for our financial models has given us
-        an edge in predictive accuracy.
+        As a neurologist, I'm impressed by the adaptive nature of Cerebrix's games.
         <Highlight>
-          Our investment strategies are now powered by real-time data analytics.
-        </Highlight>{" "}
-        Transformative for the finance industry.
+          They provide just the right level of challenge for each patient
+        </Highlight>
+        , making therapy both effective and enjoyable.
       </p>
     ),
   },
   {
-    name: "Linda Wu",
-    role: "VP of Operations at LogiChain Solutions",
-    img: "https://randomuser.me/api/portraits/women/5.jpg",
+    name: "Emily Rodriguez",
+    role: "Memory Care Facility Director",
+    img: "/testimonials/emily-rodriguez.jpg",
     description: (
       <p>
-        #LogiTech&apos;s supply chain optimization tools have drastically
-        reduced our operational costs.
+        The progress tracking feature has been invaluable in our facility.
         <Highlight>
-          Efficiency and accuracy in logistics have never been better.
-        </Highlight>{" "}
+          It allows us to provide personalized care and show families tangible results
+        </Highlight>
+        of their loved ones' cognitive therapy.
       </p>
     ),
   },
   {
-    name: "Carlos Gomez",
-    role: "Head of R&D at EcoInnovate",
-    img: "https://randomuser.me/api/portraits/men/14.jpg",
+    name: "Robert Thompson",
+    role: "Cerebrix User",
+    img: "/testimonials/robert-thompson.jpg",
     description: (
       <p>
-        By integrating #GreenTech&apos;s sustainable energy solutions,
-        we&apos;ve seen a significant reduction in carbon footprint.
+        I was skeptical at first, but Cerebrix has truly helped me stay mentally active.
         <Highlight>
-          Leading the way in eco-friendly business practices.
-        </Highlight>{" "}
-        Pioneering change in the industry.
+          The voice commands are intuitive, and I look forward to my daily exercises
+        </Highlight>
+        . It's become an essential part of my routine.
       </p>
     ),
   },
   {
-    name: "Aisha Khan",
-    role: "Chief Marketing Officer at Fashion Forward",
-    img: "https://randomuser.me/api/portraits/women/56.jpg",
+    name: "Lisa Patel",
+    role: "Occupational Therapist",
+    img: "/testimonials/lisa-patel.jpg",
     description: (
       <p>
-        #TrendSetter&apos;s market analysis AI has transformed how we approach
-        fashion trends.
+        Cerebrix complements our therapy sessions perfectly.
         <Highlight>
-          Our campaigns are now data-driven with higher customer engagement.
-        </Highlight>{" "}
-        Revolutionizing fashion marketing.
+          The variety of cognitive exercises helps reinforce our in-person work
+        </Highlight>
+        , and patients enjoy the interactive nature of the platform.
       </p>
     ),
   },
   {
-    name: "Tom Chen",
-    role: "Director of IT at HealthTech Solutions",
-    img: "https://randomuser.me/api/portraits/men/18.jpg",
+    name: "James Wilson",
+    role: "Family Member",
+    img: "/testimonials/james-wilson.jpg",
     description: (
       <p>
-        Implementing #MediCareAI in our patient care systems has improved
-        patient outcomes significantly.
+        Living far from my father, I worried about his cognitive health.
         <Highlight>
-          Technology and healthcare working hand in hand for better health.
-        </Highlight>{" "}
-        A milestone in medical technology.
-      </p>
-    ),
-  },
-  {
-    name: "Sofia Patel",
-    role: "CEO at EduTech Innovations",
-    img: "https://randomuser.me/api/portraits/women/73.jpg",
-    description: (
-      <p>
-        #LearnSmart&apos;s AI-driven personalized learning plans have doubled
-        student performance metrics.
-        <Highlight>
-          Education tailored to every learner&apos;s needs.
-        </Highlight>{" "}
-        Transforming the educational landscape.
-      </p>
-    ),
-  },
-  {
-    name: "Jake Morrison",
-    role: "CTO at SecureNet Tech",
-    img: "https://randomuser.me/api/portraits/men/25.jpg",
-    description: (
-      <p>
-        With #CyberShield&apos;s AI-powered security systems, our data
-        protection levels are unmatched.
-        <Highlight>Ensuring safety and trust in digital spaces.</Highlight>{" "}
-        Redefining cybersecurity standards.
-      </p>
-    ),
-  },
-  {
-    name: "Nadia Ali",
-    role: "Product Manager at Creative Solutions",
-    img: "https://randomuser.me/api/portraits/women/78.jpg",
-    description: (
-      <p>
-        #DesignPro&apos;s AI has streamlined our creative process, enhancing
-        productivity and innovation.
-        <Highlight>Bringing creativity and technology together.</Highlight> A
-        game-changer for creative industries.
-      </p>
-    ),
-  },
-  {
-    name: "Omar Farooq",
-    role: "Founder at Startup Hub",
-    img: "https://randomuser.me/api/portraits/men/54.jpg",
-    description: (
-      <p>
-        #VentureAI&apos;s insights into startup ecosystems have been invaluable
-        for our growth and funding strategies.
-        <Highlight>Empowering startups with data-driven decisions.</Highlight> A
-        catalyst for startup success.
+          Cerebrix gives me peace of mind, knowing he's engaging in daily mental exercises
+        </Highlight>
+        . The progress reports are a great way to stay connected to his care.
       </p>
     ),
   },
@@ -270,8 +170,8 @@ const testimonials = [
 export default function Testimonials() {
   return (
     <Section
-      title="Testimonials"
-      subtitle="What our customers are saying"
+      title="Success Stories"
+      subtitle="Hear from our users, caregivers, and healthcare professionals"
       className="max-w-8xl"
     >
       <div className="relative mt-6 max-h-screen overflow-hidden">
