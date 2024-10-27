@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import confetti from "canvas-confetti";
 
 const MathGame = () => {
   const [gameState, setGameState] = useState('start'); // 'start', 'playing', 'gameOver'
@@ -55,10 +56,42 @@ const MathGame = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const duration = 5 * 200;
+    const randomInRange = (min, max) =>
+      Math.random() * (max - min) + min;
     if (userAnswer === problem.answer) {
+      const animationEnd = Date.now() + duration;
+      setShowFeedback('Correct!');
       setScore(score + 1);
-      updateDifficulty(true);
+      const interval = window.setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+   
+        if (timeLeft <= 0) {
+          setShowFeedback('');
+          return clearInterval(interval);}
+        
+      confetti({
+        defaults:{ startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 },
+        particleCount:10,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      });
+      confetti({
+        defaults:{ startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 },
+        particleCount:10,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      });
+    }, 100);
+    updateDifficulty(true);
     } else {
+      const animationEnd = Date.now() + duration;
+      setShowFeedback('Incorrect!');
+      const interval = window.setInterval(()=>{
+        const timeLeft = animationEnd - Date.now();
+   
+        if (timeLeft <= 0) {
+          setShowFeedback('');
+          return clearInterval(interval);}
+      }, 100);
       updateDifficulty(false);
     }
     setUserAnswer('');
@@ -75,6 +108,8 @@ const MathGame = () => {
     }
     setTimeout(() => setCognitiveState('stable'), 2000);
   };
+
+  const [showFeedback, setShowFeedback] = useState('');
 
   const renderGameContent = () => {
     switch (gameState) {
@@ -97,9 +132,7 @@ const MathGame = () => {
             <div className="flex justify-between mb-4">
               <p>Score: {score}</p>
               <p>Time: {timer}s</p>
-              <p>Difficulty: {difficulty}</p>
             </div>
-            <p className="mb-2">Cognitive State: {cognitiveState}</p>
             {problem && (
               <form onSubmit={handleSubmit} className="mb-4">
                 <p className="text-xl mb-2">{problem.question} = ?</p>
@@ -116,6 +149,7 @@ const MathGame = () => {
                 </button>
               </form>
             )}
+            {showFeedback !== '' && <p className="text-center font-bold">{showFeedback}</p> }
           </div>
         );
       case 'gameOver':
@@ -136,9 +170,18 @@ const MathGame = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 max-w-md">
-      <h1 className="text-3xl font-bold mb-6 text-center">Math Challenge</h1>
+    <div className="container p-4 w-full flex flex-col">
+      <div className="flex justify-left w-full">
+        <a href="/">
+          <svg viewBox="0 -960 960 960" width="24px" fill="#c8cacd">
+            <path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
+          </svg>
+        </a>
+      </div>
+      <div className="max-w-md mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center pt-20">Math Challenge</h1>
       {renderGameContent()}
+      </div>
     </div>
   );
 };
