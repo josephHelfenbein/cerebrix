@@ -30,8 +30,12 @@
 <br />
 <div align="center">
 
+<a href="https://github.com/aw4630/hackru-2024">
+    <img src="./public/cerebrix-cover.png" alt="Logo" height="150" style="padding-bottom:25px;">
+  </a>
+
   <p align="center">
-    A web application that provides dementia patients with cognitive tracking through games.
+    Engaging minds, empowering caretakers: adaptive games for cognitive wellness.
     <br />
     <a href="https://github.com/aw4630/hackru-2024/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
@@ -76,6 +80,8 @@ A caretaker sets up and manages the patient’s account, personalizing it to enh
 
 We used React.js/Next.js and Vercel to build the application, using a Cloudflare Worker running Meta Llama 3 for generation of math problems, Clerk and Supabase for authentication and users, Spotify API for the musical instrument guessing game, and Hume AI for the voice-to-voice AI.
 
+<img src="./public/techstack-cerebrix.png" alt="Tech stack" height="300" style="padding-bottom:15px;">
+
 The cognitive progress or decline is measured by accuracy in the games over time, which is stored in the Supabase database.
 
 
@@ -87,6 +93,7 @@ The cognitive progress or decline is measured by accuracy in the games over time
 
 * [![Next.js][Next.js]][Next-url]
 * [![React][React.js]][React-url]
+* [![Tailwind][Tailwind]][Tailwind-url]
 * [![Cloudflare][Cloudflare]][Cloudflare-url]
 * [![Hume][Hume]][Hume-url]
 * [![Supabase][Supabase]][Supabase-url]
@@ -219,3 +226,5 @@ This project was submitted to the HackRU 2024 hackathon for the NeuroTech track.
 [Hume-url]: https://www.hume.ai/
 [Spotify]: https://img.shields.io/badge/spotify%20api-1DB954?logo=spotify&style=for-the-badge&logoColor=white
 [Spotify-url]: https://developer.spotify.com/documentation/web-api
+[Tailwind]: https://img.shields.io/badge/tailwind%20css-06B6D4?logo=tailwindcss&style=for-the-badge&logoColor=white
+[Tailwind-url]: https://tailwindcss.com/
