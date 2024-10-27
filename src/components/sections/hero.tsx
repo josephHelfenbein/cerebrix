@@ -31,6 +31,7 @@ function HeroPill() {
         className="ml-1"
         viewBox="0 0 12 12"
         fill="none"
+        alt="Arrow Icon"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -97,7 +98,7 @@ function HeroCTA() {
         transition={{ delay: 0.8, duration: 0.8, ease }}
       >
         <Link
-          href="/signup"
+          href="/sign-up"
           className={cn(
             buttonVariants({ variant: "default" }),
             "w-full sm:w-auto text-background flex gap-2"
