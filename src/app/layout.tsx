@@ -4,7 +4,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { constructMetadata, constructViewport } from "@/utils";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
-import "@styles/globals.css";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = constructMetadata({});
 
