@@ -65,7 +65,8 @@ const MathGame = () => {
       setScore(score + 1);
       const interval = window.setInterval(() => {
         const timeLeft = animationEnd - Date.now();
-   
+
+        
         if (timeLeft <= 0) {
           setShowFeedback('');
           return clearInterval(interval);}
