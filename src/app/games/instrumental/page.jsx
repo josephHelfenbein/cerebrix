@@ -191,7 +191,7 @@ export default function YearGuessingGame() {
 
   const loginWithSpotify = () => {
     const clientId = '639df2847d0b4df48f321a7dbbdae0e3';
-    const redirectUri = 'http://localhost:3000/games/instrumental';
+    const redirectUri = 'https://hackru-2024-rouge.vercel.app/games/instrumental';
     const scopes = ['user-read-private', 'user-read-email', 'streaming'];
 
     window.location = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
