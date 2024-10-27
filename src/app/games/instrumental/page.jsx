@@ -20,7 +20,7 @@ export default function InstrumentGame() {
 
   const fetchAccessToken = async () => {
     try {
-      const response = await fetch('/api/refresh-token', { method: 'POST' });
+      const response = await fetch('/api/route.ts', { method: 'POST' });
       const data = await response.json();
 
       if (data.access_token) {
