@@ -312,6 +312,7 @@ export default function InstrumentGuessingGame() {
                   onClick={restartGame}
                   className="px-8 py-4 bg-yellow-500 text-white rounded-full font-semibold hover:bg-yellow-600 transition duration-300 text-xl shadow-lg"
                 >
+                  
                   Play Again 🔄
                 </button>
               )}
