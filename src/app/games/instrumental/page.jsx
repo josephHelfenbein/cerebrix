@@ -29,6 +29,9 @@ export default function InstrumentGuessingGame() {
 
   const audioRef = useRef(null);
 
+  // Add new state for input mode
+  const [inputMode, setInputMode] = useState('select'); // 'select' or 'type'
+
   useEffect(() => {
     const hash = window.location.hash;
     let storedToken = window.localStorage.getItem('spotify_token');
@@ -232,21 +235,46 @@ export default function InstrumentGuessingGame() {
             <>
               {!currentTrack && !gameOver && (
                 <div className="flex flex-col items-center mb-8">
-                  <select
-                    value={userGuess}
-                    onChange={(e) => setUserGuess(e.target.value)}
-                    className="px-6 py-3 border rounded-full mb-4 w-80 text-center text-xl text-black"
-                  >
-                    <option value="">Select an instrument</option>
-                    {Object.keys(instrumentEmojis).map((instrument) => (
-                      <option key={instrument} value={instrument}>
-                        {instrument} {instrumentEmojis[instrument]}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="mb-4">
+                    <button
+                      onClick={() => setInputMode(inputMode === 'select' ? 'type' : 'select')}
+                      className="px-4 py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition duration-300"
+                    >
+                      Switch to {inputMode === 'select' ? 'Type' : 'Select'} Mode
+                    </button>
+                  </div>
+
+                  {inputMode === 'select' ? (
+                    <select
+                      value={userGuess}
+                      onChange={(e) => setUserGuess(e.target.value)}
+                      className="px-6 py-3 border rounded-full mb-4 w-80 text-center text-xl text-black"
+                    >
+                      <option value="">Select an instrument</option>
+                      {Object.keys(instrumentEmojis).map((instrument) => (
+                        <option key={instrument} value={instrument}>
+                          {instrument} {instrumentEmojis[instrument]}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      type="text"
+                      value={userGuess}
+                      onChange={(e) => setUserGuess(e.target.value)}
+                      placeholder="Type instrument name..."
+                      className="px-6 py-3 border rounded-full mb-4 w-80 text-center text-xl text-black"
+                    />
+                  )}
+
                   <button
                     onClick={handleGuess}
-                    className="px-8 py-4 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition duration-300 text-xl shadow-lg"
+                    disabled={!userGuess}
+                    className={`px-8 py-4 rounded-full font-semibold transition duration-300 text-xl shadow-lg ${
+                      userGuess 
+                        ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                        : 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                    }`}
                   >
                     Submit Guess
                   </button>
