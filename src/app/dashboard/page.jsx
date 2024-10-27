@@ -2,6 +2,8 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
+import {useState} from 'react';
+import Upload from '@/components/upload-images';
 
 export default function Dashboard() {
   const router = useRouter();
@@ -10,14 +12,17 @@ export default function Dashboard() {
     router.push(`/games/${game}`);
   };
 
+  const [isModalOpen, setModalOpen] = useState(false);
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-50 p-8">
+       <Upload isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
       <h1 className="text-4xl font-bold text-gray-800 mb-12">Select a Mini-Game</h1>
       <div className="grid grid-cols-2 gap-8 w-full max-w-2xl">
         <GameCard
           image="/images/memory.png"
           label="🧠 Memory Matching Game"
-          onClick={() => navigateToGame('memory')}
+          onClick={() => setModalOpen(true)}
         />
         <GameCard
           image="/images/crossword.png"
