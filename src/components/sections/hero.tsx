@@ -6,6 +6,7 @@ import { Icons } from "@/components/icons";
 import HeroVideoDialog from "@/components/magicui/hero-video";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { createClient } from '@/utils/supabase/client' 
 import Link from "next/link";
 
 const ease = [0.16, 1, 0.3, 1];
@@ -89,6 +90,8 @@ function HeroTitles() {
 }
 
 function HeroCTA() {
+  const supabase = createClient()
+  const P = supabase.auth.getAuth()
   return (
     <>
       <motion.div
