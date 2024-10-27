@@ -32,7 +32,7 @@ export default function Dashboard() {
         <GameCard
           image="/images/instrument.png"
           label="🎵 Guess the Instrument"
-          onClick={() => navigateToGame('reaction')}
+          onClick={() => navigateToGame('instrumental')}
         />
       </div>
     </div>
