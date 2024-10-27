@@ -10,7 +10,7 @@ import { cookies } from 'next/headers';
  */
 export const createServer = async () => {
   try {
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
 
     const client = createServerClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
