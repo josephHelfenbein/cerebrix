@@ -24,7 +24,6 @@ export default function Hume(){
         if(typeof navigator.permissions !== 'undefined'){
             try{
                 const status = await navigator.permissions.query({ name: 'microphone' as PermissionName});
-                const status = await navigator.permissions.query({ name: 'microphone' as PermissionName});
                 return status.state === 'granted';
             }
             catch(err) {console.error('Failed to check audio permissions: ', err);}

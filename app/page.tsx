@@ -1,5 +1,4 @@
 import Client from "@/components/client";
-import Client from "@/components/client";
 import Image from "next/image";
 import {fetchAccessToken} from 'hume';
 
