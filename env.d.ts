@@ -13,6 +13,8 @@ declare global {
       NEXT_PUBLIC_STRIPE_WEBHOOK_SECRET: string;
       NEXT_PUBLIC_SUPABASE_URL: string;
       NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
+      NEXT_PUBLIC_HUME_API_KEY: string;
+      NEXT_PUBLIC_HUME_SECRET_KEY: string;
       SUPABASE_SERVICE_ROLE_KEY: string;
       SPOTIFY_CLIENT_ID: string;
       SPOTIFY_CLIENT_SECRET: string;

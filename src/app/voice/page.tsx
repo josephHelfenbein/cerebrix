@@ -2,8 +2,8 @@ import Client from '@/components/client';
 import { fetchAccessToken } from 'hume';
 
 export default async function Voice() {
-    const HUME_API_KEY = String(process.env.HUME_API_KEY);
-    const HUME_SECRET_KEY = String(process.env.HUME_SECRET_KEY);
+    const HUME_API_KEY = String(process.env.NEXT_PUBLIC_HUME_API_KEY);
+    const HUME_SECRET_KEY = String(process.env.NEXT_PUBLIC_HUME_SECRET_KEY);
     const accessToken = await fetchAccessToken({
         apiKey: HUME_API_KEY,
         secretKey: HUME_SECRET_KEY,
