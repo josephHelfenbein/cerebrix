@@ -6,10 +6,7 @@ import { Icons } from "@/components/icons";
 import HeroVideoDialog from "@/components/magicui/hero-video";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { createClient } from '@/utils/supabase/client'
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -34,7 +31,6 @@ function HeroPill() {
         className="ml-1"
         viewBox="0 0 12 12"
         fill="none"
-        alt="Arrow Icon"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -92,20 +88,6 @@ function HeroTitles() {
 }
 
 function HeroCTA() {
-  const supabase = createClient()
-  const router = useRouter()
-
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session) {
-        router.push('/dashboard')
-      }
-    })
-
-    return () => {
-      authListener.subscription.unsubscribe()
-    }
-  }, [supabase, router])
 
   return (
     <>
@@ -116,7 +98,7 @@ function HeroCTA() {
         transition={{ delay: 0.8, duration: 0.8, ease }}
       >
         <Link
-          href="/sign-up"
+          href="/dashboard"
           className={cn(
             buttonVariants({ variant: "default" }),
             "w-full sm:w-auto text-background flex gap-2"

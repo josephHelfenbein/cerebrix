@@ -14,7 +14,6 @@ import { createClient } from '@/utils/supabase/client';
 
 export default function Header() {
   const [addBorder, setAddBorder] = useState(false);
-  const [user, setUser] = useState(null);
   const supabase = createClient();
   const router = useRouter();
 
@@ -29,20 +28,6 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user || null);
-    });
-
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user || null);
-    });
-
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
-  }, [supabase.auth]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -68,8 +53,6 @@ export default function Header() {
             </nav>
 
             <div className="gap-2 flex">
-              {user ? (
-                <>
                   <Link
                     href="/dashboard"
                     className={buttonVariants({ variant: "outline" })}
@@ -81,10 +64,7 @@ export default function Header() {
                     onClick={handleSignOut}
                   >
                     Sign Out
-                  </Button>
-                </>
-              ) : (
-                <>
+                </Button>
                   <Link
                     href="/sign-in"
                     className={buttonVariants({ variant: "outline" })}
@@ -100,9 +80,7 @@ export default function Header() {
                   >
                     <Icons.logo className="h-6 w-6" />
                     Get Started for Free
-                  </Link>
-                </>
-              )}
+              </Link>
             </div>
           </div>
         </div>
