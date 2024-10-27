@@ -29,7 +29,6 @@ export default function Hume(){
             catch(err) {console.error('Failed to check audio permissions: ', err);}
         }
         return false;
-        return false;
     }
     async function requestPermission(){
         setRequestingPermission(true);
@@ -54,12 +53,12 @@ export default function Hume(){
                 setChatHistory(prev=>[...prev,{text:'Please grant audio permissions.', sender:'system'}]);
                 return;
             }
-            connect().then(()=>{
-                setChatHistory(prev=>[...prev, {text:'Session started', sender:'system'}]);
-            }).catch(()=>{
-                setChatHistory(prev=>[...prev, {text:'Error: Failed to start session', sender:'system'}]);
-            });
         }
+        connect().then(()=>{
+            setChatHistory(prev=>[...prev, {text:'Session started', sender:'system'}]);
+        }).catch(()=>{
+            setChatHistory(prev=>[...prev, {text:'Error: Failed to start session', sender:'system'}]);
+        });
     }
     function handleDisconnect(){
         disconnect();
