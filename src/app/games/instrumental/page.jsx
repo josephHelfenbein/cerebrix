@@ -233,7 +233,7 @@ export default function InstrumentGuessingGame() {
             <div className="text-2xl mb-4 animate-pulse">Loading tracks... 🎶</div>
           ) : (
             <>
-              {!currentTrack && !gameOver && (
+              {currentTrack && !gameOver && (
                 <div className="flex flex-col items-center mb-8">
                   <div className="mb-4">
                     <button
@@ -281,18 +281,16 @@ export default function InstrumentGuessingGame() {
                 </div>
               )}
 
-              {currentTrack && !gameOver && (
-                <div className="flex flex-col items-center mb-8">
-                  <button
-                    onClick={() => (isPlaying ? pauseTrack() : playTrack(currentTrack))}
-                    className={`px-8 py-4 text-white rounded-full font-semibold transition duration-300 text-xl shadow-lg ${
-                      isPlaying ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
-                    }`}
-                  >
-                    {isPlaying ? 'Pause Track ⏸' : 'Play Track ▶'}
-                  </button>
-                </div>
-              )}
+              <div className="flex flex-col items-center mb-8">
+                <button
+                  onClick={() => (isPlaying ? pauseTrack() : playTrack(currentTrack))}
+                  className={`px-8 py-4 text-white rounded-full font-semibold transition duration-300 text-xl shadow-lg ${
+                    isPlaying ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
+                  }`}
+                >
+                  {isPlaying ? 'Pause Track ⏸' : 'Play Track ▶'}
+                </button>
+              </div>
 
               <p className="text-2xl mb-4 text-center">{message}</p>
               <p className="text-xl mb-2">Score: {score}</p>
