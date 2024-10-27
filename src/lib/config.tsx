@@ -7,9 +7,9 @@ export const BLUR_FADE_DELAY = 0.15;
 
 export const siteConfig = {
   name: "Cerebrix",
-  description: "Engage, Exercise, Enhance",
+  description: "Engage, Exercise, Enhance: AI-Powered Cognitive Support for Dementia Patients",
   url: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-  keywords: ["Dementia", "Cognitive Therapy", "Voice-Driven", "AI", "Memory Care"],
+  keywords: ["Dementia", "Alzheimer's", "Cognitive Therapy", "Voice-Driven", "AI", "Memory Care", "Adaptive Games"],
   links: {
     email: "support@cerebrix.ai",
     twitter: "https://twitter.com/cerebrixai",
@@ -23,25 +23,25 @@ export const siteConfig = {
       content: {
         main: {
           icon: <Icons.logo className="h-6 w-6" />,
-          title: "AI-Powered Cognitive Therapy",
-          description: "Personalized mini-games and activities for dementia support.",
+          title: "AI-Powered Cognitive Support",
+          description: "Personalized mini-games and activities for dementia and Alzheimer's patients.",
           href: "#",
         },
         items: [
           {
             href: "#",
             title: "Adaptive Games",
-            description: "Mini-games that evolve with user's cognitive needs.",
+            description: "Brain-stimulating minigames that evolve with user's cognitive needs.",
           },
           {
             href: "#",
-            title: "Voice Interaction",
-            description: "User-friendly voice-driven interface for easy navigation.",
+            title: "Voice AI Companion",
+            description: "Emotional support and social interaction through voice-to-voice AI.",
           },
           {
             href: "#",
-            title: "Progress Tracking",
-            description: "Smart analytics to monitor cognitive well-being.",
+            title: "Cognitive Tracking",
+            description: "Smart analytics to monitor cognitive changes over time.",
           },
         ],
       },
@@ -51,24 +51,24 @@ export const siteConfig = {
       content: {
         items: [
           {
-            title: "For Individuals",
+            title: "For Patients",
             href: "#",
-            description: "Personalized cognitive therapy at home.",
+            description: "Engaging cognitive therapy through familiar and accessible activities.",
           },
           {
             title: "For Caregivers",
             href: "#",
-            description: "Tools to support and monitor loved ones with dementia.",
+            description: "Tools to support, monitor, and gain insights into patients' cognitive well-being.",
           },
           {
             title: "For Healthcare Providers",
             href: "#",
-            description: "Professional tools for cognitive assessment and therapy.",
+            description: "Professional tools for cognitive assessment and personalized therapy.",
           },
           {
-            title: "For Memory Care Facilities",
+            title: "For Assisted Living Facilities",
             href: "#",
-            description: "Scalable solutions for group and individual therapy sessions.",
+            description: "Scalable solutions for group and individual cognitive support sessions.",
           },
         ],
       },
@@ -88,11 +88,11 @@ export const siteConfig = {
       features: [
         "1 User Profile",
         "Basic Games Library",
-        "Voice Interaction",
-        "Weekly Progress Reports",
+        "Voice AI Companion",
+        "Weekly Cognitive Reports",
         "Email Support",
       ],
-      description: "Perfect for individuals starting their cognitive journey",
+      description: "Perfect for individuals starting their cognitive support journey",
       buttonText: "Get Started",
       isPopular: false,
     },
@@ -106,7 +106,7 @@ export const siteConfig = {
         "Up to 5 User Profiles",
         "Extended Games Library",
         "Advanced Voice AI",
-        "Daily Progress Insights",
+        "Daily Cognitive Insights",
         "Caregiver Dashboard",
       ],
       description: "Ideal for families and small care groups",
@@ -123,10 +123,10 @@ export const siteConfig = {
         "Unlimited User Profiles",
         "Full Games & Activities Suite",
         "Custom Voice Interactions",
-        "Real-time Analytics",
+        "Real-time Cognitive Analytics",
         "Priority Support",
       ],
-      description: "For healthcare providers and large care facilities",
+      description: "For healthcare providers and assisted living facilities",
       buttonText: "Contact Sales",
       isPopular: false,
     },
@@ -136,15 +136,15 @@ export const siteConfig = {
       question: "What is Cerebrix?",
       answer: (
         <span>
-          Cerebrix is a voice-driven web app that provides engaging, therapeutic mini-games and personalized wellness activities for individuals with dementia. It uses AI to adapt exercises to each user's cognitive needs.
+          Cerebrix is an AI-powered web app that provides engaging, therapeutic mini-games and personalized activities for individuals with dementia and Alzheimer's. It uses adaptive technology to tailor exercises to each user's cognitive needs, aiming to support memory retention and cognitive stimulation.
         </span>
       ),
     },
     {
-      question: "How does Cerebrix help individuals with dementia?",
+      question: "How does Cerebrix help individuals with dementia and Alzheimer's?",
       answer: (
         <span>
-          Cerebrix offers cognitive stimulation through adaptive games, memory exercises, and relaxation activities. It tracks progress, adjusts difficulty levels, and provides insights to support cognitive well-being.
+          Cerebrix offers cognitive stimulation through adaptive games like card memory matching, name-face recognition, and math challenges. It also includes a voice AI companion for social interaction and emotional support. The app tracks progress, adjusts difficulty levels, and provides insights to support cognitive well-being over time.
         </span>
       ),
     },
@@ -152,15 +152,15 @@ export const siteConfig = {
       question: "Can Cerebrix be used without technical knowledge?",
       answer: (
         <span>
-          Yes, Cerebrix is designed to be user-friendly with voice interactions and intuitive interfaces, making it accessible for individuals with varying levels of technical proficiency.
+          Yes, Cerebrix is designed to be user-friendly with voice interactions and intuitive interfaces, making it accessible for individuals with varying levels of technical proficiency. Caretakers can easily set up and manage patient accounts.
         </span>
       ),
     },
     {
-      question: "How does the voice interaction work?",
+      question: "How does the cognitive tracking work?",
       answer: (
         <span>
-          Cerebrix uses advanced voice recognition to allow users to navigate the app, play games, and interact with activities using simple voice commands, enhancing accessibility and ease of use.
+          Cerebrix tracks game performance over time, measuring accuracy and completion rates. This data is used to provide feedback on cognitive changes, enabling caretakers and healthcare providers to observe patterns and receive insights into the patient's cognitive well-being.
         </span>
       ),
     },
@@ -168,7 +168,7 @@ export const siteConfig = {
       question: "Is my data secure with Cerebrix?",
       answer: (
         <span>
-          Yes, Cerebrix takes data privacy and security seriously. All personal information and progress data are encrypted and stored securely, complying with healthcare data protection standards.
+          Yes, Cerebrix takes data privacy and security seriously. All personal information, game performance data, and cognitive insights are encrypted and stored securely, complying with healthcare data protection standards.
         </span>
       ),
     },
