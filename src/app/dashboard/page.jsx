@@ -35,6 +35,11 @@ export default function Dashboard() {
           onClick={() => navigateToGame('instrumental')}
         />
       </div>
+      <LongGameCard
+          image="/images/emotional.png"
+          label="✨ AI Friend"
+          onClick={() => router.push('/voice')}
+        />
     </div>
   );
 }
@@ -44,6 +49,23 @@ function GameCard({ image, label, onClick }) {
     <div
       onClick={onClick}
       className="flex flex-col items-center justify-center bg-white text-black rounded-lg p-6 cursor-pointer hover:shadow-xl transition transform hover:scale-105 border border-gray-300"
+    >
+      <img
+        src={image}
+        alt={label}
+        className="w-24 h-24 object-cover rounded-md mb-4"
+      />
+      <span className="text-xl font-semibold">{label}</span>
+    </div>
+  );
+}
+
+
+function LongGameCard({ image, label, onClick }) {
+  return (
+    <div
+      onClick={onClick}
+      className="flex flex-col pl-48 pr-48  mt-12 items-center justify-center bg-white text-black rounded-lg p-6 cursor-pointer hover:shadow-xl transition transform hover:scale-105 border border-gray-300"
     >
       <img
         src={image}

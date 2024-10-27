@@ -81,22 +81,13 @@ export default function Hume(){
                     </div>
                 ))}
             </div>
-            <div>
+            <div className="flex justify-center">
                 <button
                     onClick={readyState===VoiceReadyState.OPEN ? handleDisconnect : handleConnect}
                     disabled={requestingPermission}
                 >
                     {requestingPermission ? ('Requesting permissions...') :
-                    readyState === VoiceReadyState.OPEN ? (<MicOff size={24} />) : (<Mic size={24}/>)}
-                </button>
-                <input
-                    type="text"
-                    value={message}
-                    onChange={(e)=>setMessage(e.target.value)}
-                    placeholder="Enter message..."
-                />
-                <button onClick={sendMessage}>
-                    <Send size={24} />
+                    readyState === VoiceReadyState.OPEN ? (<MicOff size={48} />) : (<Mic size={48}/>)}
                 </button>
             </div>
         </div>
