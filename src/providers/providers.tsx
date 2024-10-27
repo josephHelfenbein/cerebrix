@@ -13,12 +13,12 @@ export function Providers({ children }: { children: React.ReactNode }) {
       signUpUrl={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}
     >
       <MultisessionAppSupport>
-        <ClerkLoading>
+        {/* <ClerkLoading>
           <Loader />
         </ClerkLoading>
-        <ClerkLoaded>
+        <ClerkLoaded> */}
           {children}
-        </ClerkLoaded>
+        {/* </ClerkLoaded> */}
       </MultisessionAppSupport>
     </ClerkProvider>
   );

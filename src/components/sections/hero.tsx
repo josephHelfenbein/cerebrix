@@ -6,8 +6,10 @@ import { Icons } from "@/components/icons";
 import HeroVideoDialog from "@/components/magicui/hero-video";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { createClient } from '@/utils/supabase/client' 
+import { createClient } from '@/utils/supabase/client'
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -91,7 +93,20 @@ function HeroTitles() {
 
 function HeroCTA() {
   const supabase = createClient()
-  const P = supabase.auth.getAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        router.push('/dashboard')
+      }
+    })
+
+    return () => {
+      authListener.subscription.unsubscribe()
+    }
+  }, [supabase, router])
+
   return (
     <>
       <motion.div
