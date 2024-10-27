@@ -16,7 +16,7 @@ export async function POST(_request: Request) {
         },
         body: new URLSearchParams({
           grant_type: 'refresh_token',
-          refresh_token,
+          refresh_token: refresh_token
         }),
       });
   
