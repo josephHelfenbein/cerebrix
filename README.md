@@ -69,8 +69,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/aw4630/hackru-2024/blob/main/hackru-2024-logo.png)
-
 Cerebrix has a set of brain-stimulating minigames crafted for dementia and Alzheimer's patients, designed to encourage mental engagement through familiar and accessible activities. The suite includes games like card memory matching, a recognition game where users match aquaintences to their names, and a math challenge. Each minigame adapts its difficulty based on the player’s recent performance, creating a personalized experience that stays challenging yet manageable. This adaptive design aims to support memory retention, recognition skills, and cognitive stimulation in a gentle, supportive way. It additionally contains a voice-to-voice AI companion that the player can talk to for social activity and emotional support, and a minigame to guess the musical instrument playing in a song.
 
 A caretaker sets up and manages the patient’s account, personalizing it to enhance relevance and usability. They can also monitor cognitive changes over time, as the application tracks game performance and provides feedback on any progress or cognitive shifts. This feature enables caretakers to observe patterns and receive insights. By combining engaging gameplay with helpful progress tracking, this project aims to support both patients and caretakers in their experience with dementia care.
